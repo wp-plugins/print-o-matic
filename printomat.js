@@ -1,5 +1,5 @@
 /*!
- * Print-O-Matic v1.0
+ * Print-O-Matic v1.0.1
  * http://plugins.twinpictures.de/plugins/print-o-matic/
  *
  * Copyright 2012, Twinpictures
@@ -29,7 +29,7 @@ jQuery(document).ready(function() {
 	jQuery('.printomatic').click(function() {
 		var id = jQuery(this).attr('id');
 		var target = jQuery('#target-' + id).val();
-		var w = window.open(null, 'Print Page', 'scrollbars=yes');
+		var w = window.open(null, 'PrintOMatic', 'scrollbars=yes');
 		w.document.write(jQuery(target).html());
 		
 		

@@ -4,7 +4,7 @@ Donate link: http://plugins.twinpictures.de/flying-houseboat/
 Tags: print, print element, print shortcode, send to print, jQuery, javascript, twinpictures
 Requires at least: 2.8
 Tested up to: 3.5
-Stable tag: 1.0
+Stable tag: 1.0.1
 
 Adds the ability to print any post or post element using a simple [print-me] shortcode. Extra jQuery Jedi love given to filled out forms.
 
@@ -39,9 +39,17 @@ I like to rock the party.
 1. See the printer icon? Guess what happens when it's clicked?
 
 == Changelog ==
+
+= 1.0.1 =
+* Removed space from title of new window to prevent the wonderful IE8 from throwing errors.
+
 = 1.0 =
 * The plug-in was forked and completely rewritten from Print Button Shortcode by MyWebsiteAdvisor.
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+IE8 Bug work-around added.
+
 = 1.0 =
 Where once there was not, there now is.

@@ -3,7 +3,7 @@
 Plugin Name: Print-O-Matic
 Plugin URI: http://plugins.twinpictures.de
 Description: Shortcode that adds a printer icon, allowing the user to print the post or a specified HTML element in the post.
-Version: 1.0
+Version: 1.0.1
 Author: Twinpictures
 Author URI: http://twinpictuers.de
 License: GPL2
@@ -28,7 +28,7 @@ License: GPL2
 function printMaticInit() {
 	wp_enqueue_script('jquery');
 	if (!is_admin()){
-		//collapse script
+		//script
 		wp_register_script('printomatic-js', plugins_url('/printomat.js', __FILE__), array('jquery'), '1.0');
 		wp_enqueue_script('printomatic-js');
 
