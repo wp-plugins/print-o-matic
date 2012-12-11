@@ -29,14 +29,26 @@ jQuery(document).ready(function() {
 	jQuery('.printomatic').click(function() {
 		var id = jQuery(this).attr('id');
 		var target = jQuery('#target-' + id).val();
-		var w = window.open(null, 'PrintOMatic', 'scrollbars=yes');
+		var w = window.open('', 'PrintOMatic', 'scrollbars=yes');
 		w.document.write(jQuery(target).html());
-		
 		
 		jQuery(':input[name]', target).each(function() {
 			//console.log(jQuery(this).attr('name') + ':' + jQuery(this).val() );
 			jQuery('[name=' + jQuery(this).attr('name') +']', w.document.body).val(jQuery(this).val())
-		}) 
+		})
+		//title
+		jQuery(w.document.head).append("<title>"+ document.title +"</title>");
+		
+		//stylesheet
+		if(site_css){
+			jQuery(w.document.head).append(jQuery("<link/>", 
+				{ rel: "stylesheet", href: site_css, type: "text/css" }
+			));    
+		}
+		
+		if(custom_css){
+			jQuery(w.document.head).append("<style>"+ custom_css +"</style>");
+		}        
 		w.print();
 	});
 	
