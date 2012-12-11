@@ -1,0 +1,7 @@
+.printomatic {
+	background-image: url('print-icon.png');
+   	background-repeat: no-repeat;
+	width: 32px;
+	height: 32px;
+	cursor: pointer;
+}
