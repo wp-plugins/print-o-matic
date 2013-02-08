@@ -5,3 +5,11 @@
 	height: 32px;
 	cursor: pointer;
 }
+
+.printomatictext {
+	cursor: pointer;
+}
+
+.printomatictext:hover {
+	text-decoration: underline;
+}

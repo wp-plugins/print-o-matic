@@ -2,9 +2,9 @@
 Contributors: twinpictures, baden03
 Donate link: http://plugins.twinpictures.de/flying-houseboat/
 Tags: print, print element, print shortcode, send to print, jQuery, javascript, twinpictures
-Requires at least: 2.8
-Tested up to: 3.5
-Stable tag: 1.1
+Requires at least: 3.3
+Tested up to: 3.6-alpha
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -43,6 +43,9 @@ I like to rock the party.
 
 == Changelog ==
 
+= 1.2 =
+* Added Printicon Attribute to insert text-only print link
+
 = 1.1 =
 * Added Options page with default target attribute and css style settings
 
@@ -53,6 +56,9 @@ I like to rock the party.
 * The plug-in was forked and completely rewritten from Print Button Shortcode by MyWebsiteAdvisor.
 
 == Upgrade Notice ==
+
+= 1.2 =
+* New text only print link using printicon attribute
 
 = 1.1 =
 * New Options page where target attribute and css style settings can be set.

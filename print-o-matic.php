@@ -3,7 +3,7 @@
 Plugin Name: Print-O-Matic
 Plugin URI: http://plugins.twinpictures.de
 Description: Shortcode that adds a printer icon, allowing the user to print the post or a specified HTML element in the post.
-Version: 1.1
+Version: 1.2
 Author: Twinpictures
 Author URI: http://twinpictuers.de
 License: GPL2
@@ -35,7 +35,7 @@ class WP_Print_O_Matic {
 	 * Current version
 	 * @var string
 	 */
-	var $version = '1.1';
+	var $version = '1.2';
 
 	/**
 	 * Used as prefix for options entry
@@ -54,6 +54,7 @@ class WP_Print_O_Matic {
 	 */
 	var $options = array(
 		'print_target' => 'article',
+		'printicon' => true,
 		'use_theme_css' => '',
 		'custom_css' => ''
 	);
@@ -137,11 +138,18 @@ class WP_Print_O_Matic {
 		extract(shortcode_atts(array(
 			'id' => 'id'.$ran,
 			'target' => $options['print_target'],
+			'printicon' => $options['printicon'],
 			'title' => ''
 		), $atts));
 		
-		$output = "<div class='printomatic' id='".$id."' title='".$title."' ></div><input type='hidden' id='target-".$id."' value='".$target."' />";
-		$output .= "<script>\n";
+		if($printicon){
+			$output = "<div class='printomatic' id='".$id."' title='".$title."' ></div>";
+		}
+		else{
+			$output = "<div class='printomatictext' id='".$id."' title='".$title."' >".$title."</div>";
+		}
+		
+		$output .= "<input type='hidden' id='target-".$id."' value='".$target."' /><script>\n";
 		
 		if( empty( $options['use_theme_css'] ) ){
 			$output .= "var site_css = '';\n";
@@ -199,6 +207,26 @@ class WP_Print_O_Matic {
 										<br /><span class="description"><?php printf(__('Print target. See %sTarget Attribute%s in the documentation for more info.', 'printomat'), '<a href="http://plugins.twinpictures.de/plugins/print-o-matic/documentation/#target" target="_blank">', '</a>'); ?></span></label>
 									</td>
 								</tr>
+								<tr>
+									<th><?php _e( 'Use Print Icon:' ) ?></th>
+									<td><label><select id="<?php echo $this->options_name ?>[printicon]" name="<?php echo $this->options_name ?>[printicon]">
+										<?php
+											$se_array = array(
+												__('Yes', 'printomat') => true,
+												__('No', 'printomat') => false
+											);
+											foreach( $se_array as $key => $value){
+												$selected = '';
+												if($options['printicon'] == $value){
+													$selected = 'SELECTED';
+												}
+												echo '<option value="'.$value.'" '.$selected.'>'.$key.'</option>';
+											}
+										?>
+										</select>
+										<br /><span class="description"><?php printf(__('Use printer icon. See %sPrinticon Attribute%s in the documentation for more info.', 'printomat'), '<a href="http://plugins.twinpictures.de/plugins/print-o-matic/documentation/#printicon" target="_blank">', '</a>'); ?></span></label>
+									</td>
+								</tr>	
 								<tr>
 									<th><?php _e( 'Use Theme Style' ) ?>:</th>
 									<td><label><input type="checkbox" id="<?php echo $this->options_name ?>[use_theme_css]" name="<?php echo $this->options_name ?>[use_theme_css]" value="1"  <?php echo checked( $options['use_theme_css'], 1 ); ?> /> <?php _e('Yes, Use Theme CSS', 'printomat'); ?>

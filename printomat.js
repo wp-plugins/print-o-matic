@@ -26,7 +26,7 @@
 
 jQuery(document).ready(function() {
 	
-	jQuery('.printomatic').click(function() {
+	jQuery('.printomatic, .printomatictext').click(function() {
 		var id = jQuery(this).attr('id');
 		var target = jQuery('#target-' + id).val();
 		var w = window.open('', 'PrintOMatic', 'scrollbars=yes');
