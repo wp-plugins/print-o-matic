@@ -4,7 +4,7 @@ Donate link: http://plugins.twinpictures.de/flying-houseboat/
 Tags: print, print element, print shortcode, send to print, jQuery, javascript, twinpictures
 Requires at least: 3.3
 Tested up to: 3.6-alpha
-Stable tag: 1.2
+Stable tag: 1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -43,6 +43,9 @@ I like to rock the party.
 
 == Changelog ==
 
+= 1.3 =
+* Fixed so the print dialog box will display in IE (buggy, buggy IE)
+
 = 1.2 =
 * Added Printicon Attribute to insert text-only print link
 
@@ -56,6 +59,9 @@ I like to rock the party.
 * The plug-in was forked and completely rewritten from Print Button Shortcode by MyWebsiteAdvisor.
 
 == Upgrade Notice ==
+
+= 1.3 =
+* Print dialog will now display in IE (the non-standards browser)
 
 = 1.2 =
 * New text only print link using printicon attribute

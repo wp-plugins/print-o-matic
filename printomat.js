@@ -1,8 +1,8 @@
 /*!
- * Print-O-Matic v1.0.1
+ * Print-O-Matic JavaScript v1.2
  * http://plugins.twinpictures.de/plugins/print-o-matic/
  *
- * Copyright 2012, Twinpictures
+ * Copyright 2013, Twinpictures
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -48,7 +48,8 @@ jQuery(document).ready(function() {
 		
 		if(custom_css){
 			jQuery(w.document.head).append("<style>"+ custom_css +"</style>");
-		}        
+		}
+		w.document.close();
 		w.print();
 	});
 	
