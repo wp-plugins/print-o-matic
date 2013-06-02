@@ -3,7 +3,7 @@
 Plugin Name: Print-O-Matic
 Plugin URI: http://plugins.twinpictures.de
 Description: Shortcode that adds a printer icon, allowing the user to print the post or a specified HTML element in the post.
-Version: 1.3
+Version: 1.4
 Author: Twinpictures
 Author URI: http://twinpictuers.de
 License: GPL2
@@ -35,7 +35,7 @@ class WP_Print_O_Matic {
 	 * Current version
 	 * @var string
 	 */
-	var $version = '1.3';
+	var $version = '1.4';
 
 	/**
 	 * Used as prefix for options entry
@@ -81,7 +81,7 @@ class WP_Print_O_Matic {
 		if ( function_exists( 'register_deactivation_hook' ) )
 			register_deactivation_hook( __FILE__, array( $this, 'deactivation' ));
 		
-		//load the script and style if not viwing the dashboard
+		//load the script and style if not viewing the dashboard
 		if (!is_admin()){
 			add_action('init', array( $this, 'printMaticInit' ) );
 		}
@@ -149,6 +149,9 @@ class WP_Print_O_Matic {
 			$output = "<div class='printomatictext' id='".$id."' title='".$title."' >".$title."</div>";
 		}
 		
+		//swap target placeholders out for the real deal
+		$target = str_replace('%ID%', get_the_ID(), $target);
+		
 		$output .= "<input type='hidden' id='target-".$id."' value='".$target."' /><script>\n";
 		
 		if( empty( $options['use_theme_css'] ) ){
@@ -174,13 +177,9 @@ class WP_Print_O_Matic {
 	 * Admin options page
 	 */
 	function options_page() {
-		//here is where I left off
-		/** to do
-		 * add default target option
-		 * add toggle to add theme's css
-		 * add textarea to add custom css
-		 * figure out how to add css to new page via jQuery
-		 **/
+		$like_it_arr = array('made you feel all warm and fuzzy on the inside', 'restored your faith in humanity... even if only for a fleeting second', 'rocked your world', 'provided a positive vision of future living', 'inspired you to commit a random act of kindness', 'encouraged more regular flossing of the teeth', 'helped organize your life in the small ways that matter', 'saved your minutes--if not tens of minutes--writing your own solution', 'brightened your day... or darkened if if you are trying to sleep in', 'caused you to dance a little jig of joy and joyousness', 'inspired you to tweet a little @twinpictues social love', 'tasted great, while also being less filling');
+		$rand_key = array_rand($like_it_arr);
+		$like_it = $like_it_arr[$rand_key];
 	?>
 		<div class="wrap">
 			<div class="icon32" id="icon-options-custom" style="background:url( <?php echo plugins_url( 'css/print-icon.png', __FILE__ ) ?> ) no-repeat 50% 50%"><br></div>
@@ -191,7 +190,7 @@ class WP_Print_O_Matic {
 			<div style="margin:0 5px;">
 				<div class="postbox">
 					<div class="handlediv" title="<?php _e( 'Click to toggle' ) ?>"><br/></div>
-					<h3 class="hndle"><?php _e( 'Print-O-Matic Settings' ) ?></h3>
+					<h3 class="handle"><?php _e( 'Print-O-Matic Settings' ) ?></h3>
 					<div class="inside">
 						<form method="post" action="options.php">
 							<?php
@@ -255,14 +254,14 @@ class WP_Print_O_Matic {
 			<div style="margin:0 5px;">
 				<div class="postbox">
 					<div class="handlediv" title="<?php _e( 'Click to toggle' ) ?>"><br/></div>
-					<h3 class="hndle"><?php _e( 'About' ) ?></h3>
+					<h3 class="handle"><?php _e( 'About' ) ?></h3>
 					<div class="inside">
 						<h4><img src="<?php echo plugins_url( 'css/print-icon.png', __FILE__ ) ?>" width="16" height="16"/> Print-O-Matic Version <?php echo $this->version; ?></h4>
 						<p><?php _e( 'Shortcode that adds a printer icon, allowing the user to print the post or a specified HTML element in the post.', 'printomat') ?></p>
 						<ul>
 							<li><?php printf( __( '%sDetailed documentation%s, complete with working demonstrations of all shortcode attributes, is available for your instructional enjoyment.', 'printomat'), '<a href="http://plugins.twinpictures.de/plugins/print-o-matic/documentation/" target="_blank">', '</a>'); ?></li>
 							<li><?php printf( __( '%sFree%s & %sPremimum%s Support', 'printomat'), '<a href="http://wordpress.org/support/plugin/print-o-matic" target="_blank">', '</a>', '<a href="http://plugins.twinpictures.de/products-page/support/print-o-matic-premium-support/" target="_blank">', '</a>'); ?></li>
-							<li><?php printf( __('If you like this plugin, please consider %sreviewing it at WordPress.org%s to help others.', 'printomat'), '<a href="http://wordpress.org/support/view/plugin-reviews/print-o-matic" target="_blank">', '</a>' ) ?></li>
+							<li><?php printf( __('If Print-O-Matic %s, please consider %sreviewing it at WordPress.org%s to better help others make informed plugin choices.', 'printomat'), $like_it, '<a href="http://wordpress.org/support/view/plugin-reviews/print-o-matic" target="_blank">', '</a>' ) ?></li>
 							<li><a href="http://wordpress.org/extend/plugins/print-o-matic/" target="_blank">WordPress.org</a> | <a href="http://plugins.twinpictures.de/plugins/print-o-matic/" target="_blank">Twinpictues Plugin Oven</a></li>
 						</ul>
 					</div>
