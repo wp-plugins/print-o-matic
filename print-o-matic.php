@@ -5,7 +5,7 @@ Text Domain: printomat
 Domain Path: /language
 Plugin URI: http://plugins.twinpictures.de/plugins/print-o-matic/
 Description: Shortcode that adds a printer icon, allowing the user to print the post or a specified HTML element in the post.
-Version: 1.5
+Version: 1.5.1
 Author: twinpictures
 Author URI: http://twinpictuers.de
 License: GPL2
@@ -21,7 +21,7 @@ class WP_Print_O_Matic {
 	 * Current version
 	 * @var string
 	 */
-	var $version = '1.5';
+	var $version = '1.5.1';
 
 	/**
 	 * Used as prefix for options entry
@@ -98,7 +98,7 @@ class WP_Print_O_Matic {
 		wp_enqueue_script('jquery');
 		
 		//script
-		wp_register_script('printomatic-js', plugins_url('/printomat.js', __FILE__), array('jquery'), '1.5');
+		wp_register_script('printomatic-js', plugins_url('/printomat.js', __FILE__), array('jquery'), '1.5.1');
 		wp_enqueue_script('printomatic-js');
 
 		//css
@@ -133,6 +133,7 @@ class WP_Print_O_Matic {
 		extract(shortcode_atts(array(
 			'id' => 'id'.$ran,
 			'target' => $options['print_target'],
+			'do_not_print' => $options['do_not_print'],
 			'printicon' => $options['printicon'],
 			'printstlye' => $options['printstlye'],
 			'html_top' => $options['html_top'],
@@ -171,6 +172,9 @@ class WP_Print_O_Matic {
 		}
 		if( empty( $do_not_print ) ){
 			$scripts .= "var do_not_print = '';\n";
+		}
+		else{
+			$scripts .= "var do_not_print = ".json_encode( $do_not_print ).";\n";
 		}
 		if( empty( $print_only ) ){
 			$scripts .= "var print_only = '';\n";
@@ -299,7 +303,7 @@ class WP_Print_O_Matic {
 								<tr>
 									<th><?php _e( 'Custom Style', 'printomat' ) ?></th>
 									<td><label><textarea id="<?php echo $this->options_name ?>[custom_page_css]" name="<?php echo $this->options_name ?>[custom_page_css]" style="width: 100%; height: 150px;"><?php echo $options['custom_page_css']; ?></textarea>
-										<br /><span class="description"><?php printf(__('Custom CSS Style for <em>Ultimate Flexibility</em>. Here are some helpful %scustom CSS samples%s', 'printomat' ), '<a href="http://plugins.twinpictures.de/plugins/print-o-matic/documentation/#cssexamples" target="_blank">', '</a>'); ?></span></label>
+										<br /><span class="description"><?php printf(__('Custom <strong>display page</strong> CSS Style for for <em>Ultimate Flexibility</em>. Here are some helpful %scustom CSS samples%s', 'printomat' ), '<a href="http://plugins.twinpictures.de/plugins/print-o-matic/documentation/#cssexamples" target="_blank">', '</a>'); ?></span></label>
 									</td>
 								</tr>
 								<tr>
@@ -311,7 +315,13 @@ class WP_Print_O_Matic {
 								<tr>
 									<th><?php _e( 'Custom Print Page Style', 'printomat' ) ?></th>
 									<td><label><textarea id="<?php echo $this->options_name ?>[custom_css]" name="<?php echo $this->options_name ?>[custom_css]" style="width: 100%; height: 150px;"><?php echo $options['custom_css']; ?></textarea>
-										<br /><span class="description"><?php _e( 'Custom print page CSS style for <em>Ultimate Flexibility</em>', 'printomat' ) ?></span></label>
+										<br /><span class="description"><?php _e( 'Custom <strong>print page</strong> CSS style for <em>Ultimate Flexibility</em>', 'printomat' ) ?></span></label>
+									</td>
+								</tr>
+								<tr>
+									<th><?php _e( 'Do Not Print Elements', 'printomat' ) ?></th>
+									<td><label><input type="text" id="<?php echo $this->options_name ?>[do_not_print]" name="<?php echo $this->options_name ?>[do_not_print]" value="<?php echo $options['do_not_print']; ?>" />
+										<br /><span class="description"><?php printf(__('Content elements to exclude from the print page. See %sDo Not Print Attribute%s in the documentation for more info.', 'printomat'), '<a href="http://plugins.twinpictures.de/plugins/print-o-matic/documentation/#do-no-print" target="_blank">', '</a>'); ?></span></label>
 									</td>
 								</tr>
 								<tr>

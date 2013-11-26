@@ -4,14 +4,14 @@ Donate link: http://plugins.twinpictures.de/flying-houseboat/
 Tags: print, print element, print shortcode, send to print, jQuery, javascript, twinpictures
 Requires at least: 3.5
 Tested up to: 3.8
-Stable tag: 1.5
+Stable tag: 1.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Adds the ability to print any post or post element using a simple [print-me] shortcode. Extra jQuery Jedi love given to filled out forms.
 
 == Description ==
-Print-O-Matic adds the ability to print any post, page or page element by using a simple [print-me] shortcode.  Bonus feature: filled out form elements are also printed using a kind of jQuery Jedi magic.  A <a href='http://plugins.twinpictures.de/plugins/print-o-matic/documentation/'>complete listing of shortcode options</a> are available, as well as <a href='http://wordpress.org/support/plugin/print-o-matic'>free community</a> and <a href='http://plugins.twinpictures.de/plugins/print-o-matic/support/'>premium support</a>.
+Print-O-Matic adds the ability to print any post, page or page element by using a simple [print-me] shortcode.  Bonus feature: filled out form elements are also printed using a kind of jQuery Jedi magic.  A <a href='http://plugins.twinpictures.de/plugins/print-o-matic/documentation/'>complete listing of shortcode options</a> are available, as well as <a href='http://wordpress.org/support/plugin/print-o-matic'>free community support</a>.
 
 == Installation ==
 
@@ -46,6 +46,9 @@ I like to rock the party.
 
 == Changelog ==
 
+= 1.5.1 =
+* added the do_not_print attribute 
+
 = 1.5 =
 * added print page top and bottom HTML section (special thanks to Daniel Kevin Johansen @ 555Haxor.dk & Game-Site.dk haxor5552@hotmail.com)
 * added option to select alternate print icons
@@ -75,6 +78,9 @@ I like to rock the party.
 * The plug-in was forked and completely rewritten from Print Button Shortcode by MyWebsiteAdvisor.
 
 == Upgrade Notice ==
+
+= 1.5.1 =
+* added the do_not_print attribute 
 
 = 1.5 =
 * added print page top and bottom HTML section
