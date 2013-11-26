@@ -1,9 +1,40 @@
 .printomatic {
+	cursor: pointer;
+}
+
+.pom-default {
 	background-image: url('print-icon.png');
    	background-repeat: no-repeat;
 	width: 32px;
 	height: 32px;
-	cursor: pointer;
+}
+
+.pom-small {
+	background-image: url('print-icon-small.png');
+   	background-repeat: no-repeat;
+	width: 17px;
+	height: 16px;
+}
+
+.pom-small-black {
+	background-image: url('print-icon-small-black.png');
+   	background-repeat: no-repeat;
+	width: 17px;
+	height: 16px;
+}
+
+.pom-small-grey {
+	background-image: url('print-icon-small-grey.png');
+   	background-repeat: no-repeat;
+	width: 17px;
+	height: 16px;
+}
+
+.pom-small-white {
+	background-image: url('print-icon-small-white.png');
+   	background-repeat: no-repeat;
+	width: 17px;
+	height: 16px;
 }
 
 .printomatictext {

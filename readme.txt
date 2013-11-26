@@ -2,9 +2,9 @@
 Contributors: twinpictures, baden03
 Donate link: http://plugins.twinpictures.de/flying-houseboat/
 Tags: print, print element, print shortcode, send to print, jQuery, javascript, twinpictures
-Requires at least: 3.3
-Tested up to: 3.6-beta
-Stable tag: 1.4
+Requires at least: 3.5
+Tested up to: 3.8
+Stable tag: 1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,6 +34,9 @@ Ah yes! <a href='http://twitter.com/#!/twinpictures'>@Twinpictures</a> does the 
 = How does one use the shortcode, exactly? =
 A <a href='http://plugins.twinpictures.de/plugins/print-o-matic/documentation/'>complete listing of shortcode options</a> has been provided to answer this exact question.
 
+= Where can I translate this plugin into my favorite language? =
+<a href='http://translate.twinpictures.de/projects/printomat/'>Community translation for Print-O-Matic</a> has been set up. You are <a href='http://translate.twinpictures.de/wordpress/wp-login.php?action=register'>welcome to join</a>.
+
 = Who likes to rock the party? =
 I like to rock the party.
 
@@ -42,6 +45,16 @@ I like to rock the party.
 1. Print-O-Matic Options screen for Ultimate Flexibility
 
 == Changelog ==
+
+= 1.5 =
+* added print page top and bottom HTML section (special thanks to Daniel Kevin Johansen @ 555Haxor.dk & Game-Site.dk haxor5552@hotmail.com)
+* added option to select alternate print icons
+* can now show icon, text and icon & text print button
+* form values now include radio and checkbox selections
+* removed php4 constructors
+* added I18n localization support
+* fixed printicon attribute bug in shortcode
+* added custom css for display page as well as print page
 
 = 1.4 =
 * target may now use %ID% as a placeholder for the post ID
@@ -62,6 +75,16 @@ I like to rock the party.
 * The plug-in was forked and completely rewritten from Print Button Shortcode by MyWebsiteAdvisor.
 
 == Upgrade Notice ==
+
+= 1.5 =
+* added print page top and bottom HTML section
+* added option to select alternate print icons
+* can now show icon, text and icon & text print button
+* form values now include radio and checkbox selections
+* removed php4 constructors
+* added I18n localization support
+* bug fixes
+* added custom css for display page as well as print page
 
 = 1.4 =
 * %ID% may now be used in the target a placeholder for the post ID
