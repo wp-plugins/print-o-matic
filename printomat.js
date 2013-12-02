@@ -1,5 +1,5 @@
 /*!
- * Print-O-Matic JavaScript v1.5.1
+ * Print-O-Matic JavaScript v1.5.2
  * http://plugins.twinpictures.de/plugins/print-o-matic/
  *
  * Copyright 2013, Twinpictures
@@ -29,47 +29,53 @@ jQuery(document).ready(function() {
 	jQuery('.printomatic, .printomatictext').click(function() {
 		var id = jQuery(this).attr('id');
 		var target = jQuery('#target-' + id).val();
-		var w = window.open('', 'PrintOMatic', 'scrollbars=yes');
-		
-		if (do_not_print) {
-			jQuery(do_not_print).hide()
-		}
-		
-		if (print_only) {
-			jQuery(print_only).show()
-		}
-		if (pom_html_top){
-			jQuery(w.document.body).append(pom_html_top);
-		}
-		jQuery(w.document.body).append( jQuery( target ).clone() );
-	 	
-		if (do_not_print) {
-			jQuery(do_not_print).show()
-		}
-		
-		if (print_only) {
-			jQuery(print_only).hide()
-		}
-		
+		var w = window.open( "", "printomatic", "scrollbars=yes");
+
 		//title
-		jQuery(w.document.head).append("<title>"+ document.title +"</title>");
+		//rot in hell, Internet Explorer
+		if ( jQuery.browser.msie ){
+			w.document.title = "PrintOMatic";
+		}
+		else{
+			
+			jQuery(w.document.head).append("<title>"+ document.title +"</title>");
+		}
 		
 		//stylesheet
-		if (site_css){
-			jQuery(w.document.head).append(jQuery("<link/>", 
-				{ rel: "stylesheet", href: site_css, type: "text/css" }
-			));    
+		if ( pom_site_css ){
+			jQuery(w.document.body).append('<link rel="stylesheet" type="text/css" href="' + pom_site_css + '" />'); 
 		}
 		
-		if (custom_css){
-			jQuery(w.document.head).append("<style>"+ custom_css +"</style>");
+		if (pom_custom_css){
+			jQuery(w.document.body).append("<style>"+ pom_custom_css +"</style>");
 		}
 		
-		if (pom_html_bottom){
-			jQuery(w.document.body).append(pom_html_bottom);
+		if ( pom_do_not_print ) {
+			jQuery(pom_do_not_print).hide();
+		}
+		
+		if ( pom_html_top ){
+			jQuery(w.document.body).append( pom_html_top );
+		}
+		
+		//rot in hell, Internet Explorer
+		if ( jQuery.browser.msie ){
+			jQuery(w.document.body).append( jQuery( target ).clone().html() );
+		}
+		else{
+			jQuery(w.document.body).append( jQuery( target ).clone() );
+		}
+	 	
+		if ( pom_do_not_print ) {
+			jQuery(pom_do_not_print).show();
+		}
+		
+		if ( pom_html_bottom ){
+			jQuery(w.document.body).append( pom_html_bottom );
 		}
 		
 		w.document.close();
+		
 		w.print();
 	});
 	

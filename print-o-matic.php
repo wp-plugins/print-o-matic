@@ -5,7 +5,7 @@ Text Domain: printomat
 Domain Path: /language
 Plugin URI: http://plugins.twinpictures.de/plugins/print-o-matic/
 Description: Shortcode that adds a printer icon, allowing the user to print the post or a specified HTML element in the post.
-Version: 1.5.1
+Version: 1.5.2
 Author: twinpictures
 Author URI: http://twinpictuers.de
 License: GPL2
@@ -21,7 +21,7 @@ class WP_Print_O_Matic {
 	 * Current version
 	 * @var string
 	 */
-	var $version = '1.5.1';
+	var $version = '1.5.2';
 
 	/**
 	 * Used as prefix for options entry
@@ -41,7 +41,6 @@ class WP_Print_O_Matic {
 	var $options = array(
 		'print_target' => 'article',
 		'do_not_print' => '',
-		'print_only' => '',
 		'printicon' => true,
 		'printstlye' => 'pom-default',
 		'use_theme_css' => '',
@@ -98,7 +97,7 @@ class WP_Print_O_Matic {
 		wp_enqueue_script('jquery');
 		
 		//script
-		wp_register_script('printomatic-js', plugins_url('/printomat.js', __FILE__), array('jquery'), '1.5.1');
+		wp_register_script('printomatic-js', plugins_url('/printomat.js', __FILE__), array('jquery'), '1.5.2');
 		wp_enqueue_script('printomatic-js');
 
 		//css
@@ -138,7 +137,8 @@ class WP_Print_O_Matic {
 			'printstlye' => $options['printstlye'],
 			'html_top' => $options['html_top'],
 			'html_bottom' => $options['html_bottom'],
-			'title' => ''
+			'title' => '',
+			'alt' => ''
 		), $atts));
 		
 		//swap target placeholders out for the real deal
@@ -148,15 +148,15 @@ class WP_Print_O_Matic {
 		$scripts = "<script>";
 		
 		if( empty( $options['use_theme_css'] ) ){
-			$scripts .= "var site_css = '';\n";
+			$scripts .= "var pom_site_css = '';\n";
 		}else{
-			$scripts .= "var site_css = '".get_stylesheet_uri()."';";
+			$scripts .= "var pom_site_css = '".get_stylesheet_uri()."';";
 		}
 		if( empty( $options['custom_css'] ) ){
-			$scripts .= "var custom_css = '';\n";
+			$scripts .= "var pom_custom_css = '';\n";
 		}
 		else{
-			$scripts .= "var custom_css = ".json_encode( $options['custom_css'] ).";";
+			$scripts .= "var pom_custom_css = ".json_encode( $options['custom_css'] ).";";
 		}
 		if( empty( $html_top ) ){
 			$scripts .= "var pom_html_top = '';\n";
@@ -171,13 +171,10 @@ class WP_Print_O_Matic {
 			$scripts .= "var pom_html_bottom = ".json_encode( $html_bottom ).";";
 		}
 		if( empty( $do_not_print ) ){
-			$scripts .= "var do_not_print = '';\n";
+			$scripts .= "var pom_do_not_print = '';\n";
 		}
 		else{
-			$scripts .= "var do_not_print = ".json_encode( $do_not_print ).";\n";
-		}
-		if( empty( $print_only ) ){
-			$scripts .= "var print_only = '';\n";
+			$scripts .= "var pom_do_not_print = ".json_encode( $do_not_print ).";\n";
 		}
 		
 		$scripts .= "</script>";
@@ -185,14 +182,25 @@ class WP_Print_O_Matic {
 		if($printicon == "false"){
 			$printicon = 0;
 		}
+		if( empty($alt) ){
+			if( empty($title) ){
+				$alt_tag = '';
+			}
+			else{
+				$alt_tag = "alt='".$title."' title='".$title."'";
+			}
+		}
+		else{
+			$alt_tag = "alt='".$alt."' title='".$alt."'";
+		}
 		if($printicon && $title){
-			$output = "<div class='printomatic ".$printstlye."' id='".$id."' title='".$title."'><input type='hidden' id='target-".$id."' value='".$target."' />".$scripts."</div> <div class='printomatictext' id='".$id."' title='".$title."'>".$title."</div><div style='clear: both;'></div>";
+			$output = "<div class='printomatic ".$printstlye."' id='".$id."' ".$alt_tag."><input type='hidden' id='target-".$id."' value='".$target."' />".$scripts."</div> <div class='printomatictext' id='".$id."' ".$alt_tag.">".$title."</div><div style='clear: both;'></div>";
 		}
 		else if($printicon){
-			$output = "<div class='printomatic ".$printstlye."' id='".$id."' title='".$title."' ><input type='hidden' id='target-".$id."' value='".$target."' />".$scripts."</div>";
+			$output = "<div class='printomatic ".$printstlye."' id='".$id."' ".$alt_tag." ><input type='hidden' id='target-".$id."' value='".$target."' />".$scripts."</div>";
 		}
 		else if($title){
-			$output = "<div class='printomatictext' id='".$id."' title='".$title."' >".$title."<input type='hidden' id='target-".$id."' value='".$target."' />".$scripts."</div>";
+			$output = "<div class='printomatictext' id='".$id."' ".$alt_tag." >".$title."<input type='hidden' id='target-".$id."' value='".$target."' />".$scripts."</div>";
 		}
 		
 		return  $output;
@@ -327,13 +335,13 @@ class WP_Print_O_Matic {
 								<tr>
 									<th><?php _e( 'Print Page Top HTML', 'printomat' ) ?></th>
 									<td><label><textarea id="<?php echo $this->options_name ?>[html_top]" name="<?php echo $this->options_name ?>[html_top]" style="width: 100%; height: 150px;"><?php echo $options['html_top']; ?></textarea>
-										<br /><span class="description"><?php printf(__('HTML to be inserted at the top of the print page. See %HTML Top Attribute%s in the documentation for more info.', 'printomat' ), '<a href="http://plugins.twinpictures.de/plugins/print-o-matic/documentation/#html-top" target="_blank">', '</a>'); ?></span></label>
+										<br /><span class="description"><?php printf(__('HTML to be inserted at the top of the print page. See %sHTML Top Attribute%s in the documentation for more info.', 'printomat' ), '<a href="http://plugins.twinpictures.de/plugins/print-o-matic/documentation/#html-top" target="_blank">', '</a>'); ?></span></label>
 									</td>
 								</tr>
 								<tr>
 									<th><?php _e( 'Print Page Bottom HTML', 'printomat' ) ?></th>
 									<td><label><textarea id="<?php echo $this->options_name ?>[html_bottom]" name="<?php echo $this->options_name ?>[html_bottom]" style="width: 100%; height: 150px;"><?php echo $options['html_bottom']; ?></textarea>
-										<br /><span class="description"><?php printf(__('HTML to be inserted at the bottom of the print page. See %HTML Bottom Attribute%s in the documentation for more info.', 'printomat' ), '<a href="http://plugins.twinpictures.de/plugins/print-o-matic/documentation/#html-bottom" target="_blank">', '</a>'); ?></span></label>
+										<br /><span class="description"><?php printf(__('HTML to be inserted at the bottom of the print page. See %sHTML Bottom Attribute%s in the documentation for more info.', 'printomat' ), '<a href="http://plugins.twinpictures.de/plugins/print-o-matic/documentation/#html-bottom" target="_blank">', '</a>'); ?></span></label>
 									</td>
 								</tr>
 								</table>

@@ -4,7 +4,7 @@ Donate link: http://plugins.twinpictures.de/flying-houseboat/
 Tags: print, print element, print shortcode, send to print, jQuery, javascript, twinpictures
 Requires at least: 3.5
 Tested up to: 3.8
-Stable tag: 1.5.1
+Stable tag: 1.5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -38,13 +38,18 @@ A <a href='http://plugins.twinpictures.de/plugins/print-o-matic/documentation/'>
 <a href='http://translate.twinpictures.de/projects/printomat/'>Community translation for Print-O-Matic</a> has been set up. You are <a href='http://translate.twinpictures.de/wordpress/wp-login.php?action=register'>welcome to join</a>.
 
 = Who likes to rock the party? =
-I like to rock the party.
+We like to rock the party.
 
 == Screenshots ==
 1. See the printer icon? Guess what happens when it's clicked?
 1. Print-O-Matic Options screen for Ultimate Flexibility
 
 == Changelog ==
+
+= 1.5.2 =
+* fixed bug with do_not_print
+* added alt attribute
+* works again in horrid IE browsers
 
 = 1.5.1 =
 * added the do_not_print attribute 
@@ -78,6 +83,11 @@ I like to rock the party.
 * The plug-in was forked and completely rewritten from Print Button Shortcode by MyWebsiteAdvisor.
 
 == Upgrade Notice ==
+
+= 1.5.2 =
+* fixed bug with do_not_print
+* added alt attribute
+* works again in horrid IE browsers
 
 = 1.5.1 =
 * added the do_not_print attribute 
