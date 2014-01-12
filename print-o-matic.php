@@ -5,7 +5,7 @@ Text Domain: printomat
 Domain Path: /language
 Plugin URI: http://plugins.twinpictures.de/plugins/print-o-matic/
 Description: Shortcode that adds a printer icon, allowing the user to print the post or a specified HTML element in the post.
-Version: 1.5.2
+Version: 1.5.3
 Author: twinpictures
 Author URI: http://twinpictuers.de
 License: GPL2
@@ -21,7 +21,7 @@ class WP_Print_O_Matic {
 	 * Current version
 	 * @var string
 	 */
-	var $version = '1.5.2';
+	var $version = '1.5.3';
 
 	/**
 	 * Used as prefix for options entry
@@ -47,7 +47,8 @@ class WP_Print_O_Matic {
 		'custom_page_css' => '',
 		'custom_css' => '',
 		'html_top' => '',
-		'html_bottom' => ''
+		'html_bottom' => '',
+		'script_check' => 1
 	);
 	
 	
@@ -66,9 +67,7 @@ class WP_Print_O_Matic {
 			register_deactivation_hook( __FILE__, array( $this, 'deactivation' ));
 		
 		//load the script and style if not viewing the dashboard
-		if (!is_admin()){
-			add_action('init', array( $this, 'printMaticInit' ) );
-		}
+		add_action('wp_enqueue_scripts', array( $this, 'printMaticInit' ) );
 		
 		// add actions
 		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
@@ -93,13 +92,12 @@ class WP_Print_O_Matic {
 	 * Callback init
 	 */
 	function printMaticInit() {
-		//load up jQuery the Jedi way
-		wp_enqueue_script('jquery');
-		
 		//script
-		wp_register_script('printomatic-js', plugins_url('/printomat.js', __FILE__), array('jquery'), '1.5.2');
-		wp_enqueue_script('printomatic-js');
-
+		wp_register_script('printomatic-js', plugins_url('/printomat.js', __FILE__), array('jquery'), '1.5.4');
+		if( empty($this->options['script_check']) ){
+			wp_enqueue_script('printomatic-js');
+		}
+		
 		//css
 		wp_register_style( 'printomatic-css', plugins_url('/css/style.css', __FILE__) , array (), '1.2' );
 		wp_enqueue_style( 'printomatic-css' );
@@ -129,6 +127,11 @@ class WP_Print_O_Matic {
 	function shortcode($atts, $content = null){
 		$ran = rand(1, 10000);
 		$options = $this->options;
+		
+		if( !empty($this->options['script_check']) ){
+			wp_enqueue_script('printomatic-js');
+		}
+		
 		extract(shortcode_atts(array(
 			'id' => 'id'.$ran,
 			'target' => $options['print_target'],
@@ -140,6 +143,11 @@ class WP_Print_O_Matic {
 			'title' => '',
 			'alt' => ''
 		), $atts));
+		
+		//if no printstyle, force-set to default
+		if( empty( $printstlye ) ){
+			$printstlye = 'pom-default';
+		}
 		
 		//swap target placeholders out for the real deal
 		$target = str_replace('%ID%', get_the_ID(), $target);
@@ -342,6 +350,12 @@ class WP_Print_O_Matic {
 									<th><?php _e( 'Print Page Bottom HTML', 'printomat' ) ?></th>
 									<td><label><textarea id="<?php echo $this->options_name ?>[html_bottom]" name="<?php echo $this->options_name ?>[html_bottom]" style="width: 100%; height: 150px;"><?php echo $options['html_bottom']; ?></textarea>
 										<br /><span class="description"><?php printf(__('HTML to be inserted at the bottom of the print page. See %sHTML Bottom Attribute%s in the documentation for more info.', 'printomat' ), '<a href="http://plugins.twinpictures.de/plugins/print-o-matic/documentation/#html-bottom" target="_blank">', '</a>'); ?></span></label>
+									</td>
+								</tr>
+								<tr>
+									<th><?php _e( 'Shortcode Loads Scripts', 'printomat' ) ?></th>
+									<td><label><input type="checkbox" id="<?php echo $this->options_name ?>[script_check]" name="<?php echo $this->options_name ?>[script_check]" value="1"  <?php echo checked( $options['script_check'], 1 ); ?> /> <?php _e('Only load scripts with shortcode.', 'printomat'); ?>
+										<br /><span class="description"><?php _e('Only load  Print-O-Matic scripts if [print-me] shortcode is used.', 'printomat'); ?></span></label>
 									</td>
 								</tr>
 								</table>

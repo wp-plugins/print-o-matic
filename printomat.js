@@ -1,5 +1,5 @@
 /*!
- * Print-O-Matic JavaScript v1.5.2
+ * Print-O-Matic JavaScript v1.5.4
  * http://plugins.twinpictures.de/plugins/print-o-matic/
  *
  * Copyright 2013, Twinpictures
@@ -33,7 +33,7 @@ jQuery(document).ready(function() {
 
 		//title
 		//rot in hell, Internet Explorer
-		if ( jQuery.browser.msie ){
+		if (!!navigator.userAgent.match(/Trident\/7\./)){
 			w.document.title = "PrintOMatic";
 		}
 		else{
@@ -59,13 +59,13 @@ jQuery(document).ready(function() {
 		}
 		
 		//rot in hell, Internet Explorer
-		if ( jQuery.browser.msie ){
+		if (!!navigator.userAgent.match(/Trident\/7\./)){
 			jQuery(w.document.body).append( jQuery( target ).clone().html() );
 		}
 		else{
 			jQuery(w.document.body).append( jQuery( target ).clone() );
 		}
-	 	
+		
 		if ( pom_do_not_print ) {
 			jQuery(pom_do_not_print).show();
 		}
@@ -74,9 +74,9 @@ jQuery(document).ready(function() {
 			jQuery(w.document.body).append( pom_html_bottom );
 		}
 		
+		w.print();
 		w.document.close();
 		
-		w.print();
 	});
 	
 });
