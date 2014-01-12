@@ -4,7 +4,7 @@ Donate link: http://plugins.twinpictures.de/flying-houseboat/
 Tags: print, print element, print shortcode, send to print, jQuery, javascript, twinpictures
 Requires at least: 3.5
 Tested up to: 3.8
-Stable tag: 1.5.2
+Stable tag: 1.5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,6 +46,11 @@ We like to rock the party.
 
 == Changelog ==
 
+= 1.5.3 =
+* works also in IE 11
+* print command now waits for page to fully load
+* added option to load scrips only on pages where shortcode is used
+
 = 1.5.2 =
 * fixed bug with do_not_print
 * added alt attribute
@@ -83,6 +88,11 @@ We like to rock the party.
 * The plug-in was forked and completely rewritten from Print Button Shortcode by MyWebsiteAdvisor.
 
 == Upgrade Notice ==
+
+= 1.5.3 =
+* work-around for IE 11 bugs
+* now waits for print page to fully load before firing print command
+* added option to load scrips only on pages where shortcode is used
 
 = 1.5.2 =
 * fixed bug with do_not_print
