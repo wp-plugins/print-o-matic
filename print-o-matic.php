@@ -5,7 +5,7 @@ Text Domain: printomat
 Domain Path: /language
 Plugin URI: http://plugins.twinpictures.de/plugins/print-o-matic/
 Description: Shortcode that adds a printer icon, allowing the user to print the post or a specified HTML element in the post.
-Version: 1.5.3
+Version: 1.5.4
 Author: twinpictures
 Author URI: http://twinpictuers.de
 License: GPL2
@@ -21,7 +21,7 @@ class WP_Print_O_Matic {
 	 * Current version
 	 * @var string
 	 */
-	var $version = '1.5.3';
+	var $version = '1.5.4';
 
 	/**
 	 * Used as prefix for options entry
@@ -48,7 +48,7 @@ class WP_Print_O_Matic {
 		'custom_css' => '',
 		'html_top' => '',
 		'html_bottom' => '',
-		'script_check' => 1
+		'script_check' => ''
 	);
 	
 	
@@ -397,7 +397,7 @@ class WP_Print_O_Matic {
 					<h3 class="handle"><?php _e( 'Level Up!' ) ?></h3>
 					<div class="inside">
 						<p><?php printf(__( '%sPrint-Pro-Matic%s is our premium plugin that offers a few additional attributes and features for <i>ultimate</i> flexibility.', 'print-o-mat' ), '<a href="http://plugins.twinpictures.de/premium-plugins/print-pro-matic/">', '</a>'); ?></p>		
-						<h4><?php _e('Reasons to go Pro', 'printomat'); ?></h4>
+						<h4><?php _e('Reasons To Go Pro', 'printomat'); ?></h4>
 						<ol>
 							<li><?php _e('You are an advanced user and want/need additional features', 'printomat'); ?></li>
 							<li><?php _e('Print-O-Matic was just what I needed. Here, have some money.', 'printomat'); ?></li>
