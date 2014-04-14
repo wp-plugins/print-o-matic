@@ -42,19 +42,19 @@ jQuery(document).ready(function() {
 		}
 		
 		//stylesheet
-		if ( pom_site_css ){
+		if ( typeof pom_site_css != 'undefined' && pom_site_css ){
 			jQuery(w.document.body).append('<link rel="stylesheet" type="text/css" href="' + pom_site_css + '" />'); 
 		}
 		
-		if (pom_custom_css){
+		if ( typeof pom_custom_css != 'undefined' && pom_custom_css ){
 			jQuery(w.document.body).append("<style>"+ pom_custom_css +"</style>");
 		}
 		
-		if ( pom_do_not_print ) {
+		if ( typeof pom_do_not_print != 'undefined' && pom_do_not_print ) {
 			jQuery(pom_do_not_print).hide();
 		}
 		
-		if ( pom_html_top ){
+		if ( typeof pom_html_top != 'undefined' && pom_html_top ){
 			jQuery(w.document.body).append( pom_html_top );
 		}
 		
@@ -66,11 +66,11 @@ jQuery(document).ready(function() {
 			jQuery(w.document.body).append( jQuery( target ).clone() );
 		}
 		
-		if ( pom_do_not_print ) {
+		if ( typeof pom_do_not_print != 'undefined' && pom_do_not_print ) {
 			jQuery(pom_do_not_print).show();
 		}
 		
-		if ( pom_html_bottom ){
+		if ( typeof pom_html_bottom != 'undefined' && pom_html_bottom ){
 			jQuery(w.document.body).append( pom_html_bottom );
 		}
 		

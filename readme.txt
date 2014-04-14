@@ -3,8 +3,8 @@ Contributors: twinpictures, baden03
 Donate link: http://plugins.twinpictures.de/flying-houseboat/
 Tags: print, print element, print shortcode, send to print, jQuery, javascript, twinpictures
 Requires at least: 3.5
-Tested up to: 3.8
-Stable tag: 1.5.3
+Tested up to: 3.8.2
+Stable tag: 1.5.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -45,6 +45,11 @@ We like to rock the party.
 1. Print-O-Matic Options screen for Ultimate Flexibility
 
 == Changelog ==
+
+= 1.5.4 =
+* load scripts option now defaults to always
+* improvements for roll-your-own print-o-matic elements
+* added german and hungarian translations
 
 = 1.5.3 =
 * works also in IE 11
@@ -88,6 +93,9 @@ We like to rock the party.
 * The plug-in was forked and completely rewritten from Print Button Shortcode by MyWebsiteAdvisor.
 
 == Upgrade Notice ==
+
+= 1.5.4 =
+* small bug fixe with css not loading on roll-your-own POM elements
 
 = 1.5.3 =
 * work-around for IE 11 bugs
