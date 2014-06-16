@@ -1,8 +1,8 @@
 /*!
- * Print-O-Matic JavaScript v1.5.4
+ * Print-O-Matic JavaScript v1.5.8
  * http://plugins.twinpictures.de/plugins/print-o-matic/
  *
- * Copyright 2013, Twinpictures
+ * Copyright 2014, Twinpictures
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,8 +29,15 @@ jQuery(document).ready(function() {
 	jQuery('.printomatic, .printomatictext').click(function() {
 		var id = jQuery(this).attr('id');
 		var target = jQuery('#target-' + id).val();
+		if (target == '%prev%') {
+			target = jQuery(this).prev();
+		}
+		if (target == '%next%') {
+			target = jQuery(this).next();
+		}
 		var w = window.open( "", "printomatic", "scrollbars=yes");
-
+		w.document.write("<!DOCTYPE html><html><head></head><body></body></html>");
+		
 		//title
 		//rot in hell, Internet Explorer
 		if (!!navigator.userAgent.match(/Trident\/7\./)){
@@ -60,7 +67,17 @@ jQuery(document).ready(function() {
 		
 		//rot in hell, Internet Explorer
 		if (!!navigator.userAgent.match(/Trident\/7\./)){
-			jQuery(w.document.body).append( jQuery( target ).clone().html() );
+			//jQuery(w.document.body).append( jQuery( target ).clone().html() );
+			jQuery(w.document.body).append( function() {
+				var ieID = target.substr(1);
+				var ieOutput = jQuery( w.document.createElement( 'div' ) );
+				if ( target.substr(0,1) == '#' ){
+					ieOutput.attr('id', ieID);
+				} else{
+					ieOutput.addClass(ieID);
+				}
+				return ieOutput.append( jQuery( target ).clone().html() );
+			});
 		}
 		else{
 			jQuery(w.document.body).append( jQuery( target ).clone() );
@@ -74,8 +91,21 @@ jQuery(document).ready(function() {
 			jQuery(w.document.body).append( pom_html_bottom );
 		}
 		
-		w.print();
-		w.document.close();
+		/* one way is to check for an iframe and if so, force a pause... but surely this is not the best way */
+		iframe = jQuery(w.document).find('iframe');
+		var pause_time;
+		if (iframe.length) {
+			console.log('hey dude, we have an IFRAME');
+			pause_time = w.setTimeout(printIt, 3000);
+		}
+		else{
+			printIt();
+		}
+		
+		function printIt(){
+			w.print();
+			w.document.close();
+		}
 		
 	});
 	
