@@ -5,7 +5,7 @@ Text Domain: printomat
 Domain Path: /language
 Plugin URI: http://plugins.twinpictures.de/plugins/print-o-matic/
 Description: Shortcode that adds a printer icon, allowing the user to print the post or a specified HTML element in the post.
-Version: 1.5.3
+Version: 1.5.5
 Author: twinpictures
 Author URI: http://twinpictuers.de
 License: GPL2
@@ -21,7 +21,7 @@ class WP_Print_O_Matic {
 	 * Current version
 	 * @var string
 	 */
-	var $version = '1.5.3';
+	var $version = '1.5.5';
 
 	/**
 	 * Used as prefix for options entry
@@ -41,14 +41,15 @@ class WP_Print_O_Matic {
 	var $options = array(
 		'print_target' => 'article',
 		'do_not_print' => '',
-		'printicon' => true,
+		'printicon' => 'true',
 		'printstlye' => 'pom-default',
 		'use_theme_css' => '',
 		'custom_page_css' => '',
 		'custom_css' => '',
 		'html_top' => '',
 		'html_bottom' => '',
-		'script_check' => 1
+		'script_check' => '',
+		'fix_clone' => '',
 	);
 	
 	
@@ -93,9 +94,14 @@ class WP_Print_O_Matic {
 	 */
 	function printMaticInit() {
 		//script
-		wp_register_script('printomatic-js', plugins_url('/printomat.js', __FILE__), array('jquery'), '1.5.4');
+		wp_register_script('printomatic-js', plugins_url('/printomat.js', __FILE__), array('jquery'), '1.5.8');
 		if( empty($this->options['script_check']) ){
 			wp_enqueue_script('printomatic-js');
+		}
+		
+		wp_register_script('jquery-clone-fix', plugins_url('/jquery.fix.clone.js', __FILE__), array('jquery'), '1.1');
+		if( empty($this->options['script_check']) && !empty($this->options['fix_clone']) ){
+			wp_enqueue_script('jquery-clone-fix');
 		}
 		
 		//css
@@ -130,9 +136,12 @@ class WP_Print_O_Matic {
 		
 		if( !empty($this->options['script_check']) ){
 			wp_enqueue_script('printomatic-js');
+			if(!empty($this->options['fix_clone'])){
+				wp_enqueue_script('jquery-clone-fix');
+			}
 		}
 		
-		extract(shortcode_atts(array(
+		extract( shortcode_atts(array(
 			'id' => 'id'.$ran,
 			'target' => $options['print_target'],
 			'do_not_print' => $options['do_not_print'],
@@ -358,6 +367,13 @@ class WP_Print_O_Matic {
 										<br /><span class="description"><?php _e('Only load  Print-O-Matic scripts if [print-me] shortcode is used.', 'printomat'); ?></span></label>
 									</td>
 								</tr>
+								
+								<tr>
+									<th><?php _e( 'Activate jQuery fix.clone', 'printomat' ) ?></th>
+									<td><label><input type="checkbox" id="<?php echo $this->options_name ?>[fix_clone]" name="<?php echo $this->options_name ?>[fix_clone]" value="1"  <?php echo checked( $options['fix_clone'], 1 ); ?> /> <?php _e('Activate if textboxe content is not printing.', 'printomat'); ?>
+										<br /><span class="description"><?php printf(__('Addresses known bug with textboxes and the jQuery clone function. %sjquery.fix.clone on github.com%s', 'printomat'), '<a href="http://github.com/spencertipping/jquery.fix.clone/" target="_blank">', '</a>'); ?></span></label>
+									</td>
+								</tr>
 								</table>
 							</fieldset>
 							
@@ -397,7 +413,7 @@ class WP_Print_O_Matic {
 					<h3 class="handle"><?php _e( 'Level Up!' ) ?></h3>
 					<div class="inside">
 						<p><?php printf(__( '%sPrint-Pro-Matic%s is our premium plugin that offers a few additional attributes and features for <i>ultimate</i> flexibility.', 'print-o-mat' ), '<a href="http://plugins.twinpictures.de/premium-plugins/print-pro-matic/">', '</a>'); ?></p>		
-						<h4><?php _e('Reasons to go Pro', 'printomat'); ?></h4>
+						<h4><?php _e('Reasons To Go Pro', 'printomat'); ?></h4>
 						<ol>
 							<li><?php _e('You are an advanced user and want/need additional features', 'printomat'); ?></li>
 							<li><?php _e('Print-O-Matic was just what I needed. Here, have some money.', 'printomat'); ?></li>
