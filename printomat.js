@@ -1,5 +1,5 @@
 /*!
- * Print-O-Matic JavaScript v1.5.8
+ * Print-O-Matic JavaScript v1.5.9
  * http://plugins.twinpictures.de/plugins/print-o-matic/
  *
  * Copyright 2014, Twinpictures
@@ -49,20 +49,24 @@ jQuery(document).ready(function() {
 		}
 		
 		//stylesheet
-		if ( typeof pom_site_css != 'undefined' && pom_site_css ){
-			jQuery(w.document.body).append('<link rel="stylesheet" type="text/css" href="' + pom_site_css + '" />'); 
+		//if ( typeof pom_site_css != 'undefined' && pom_site_css ){
+		if ( typeof print_data[id]['pom_site_css'] != 'undefined' && print_data[id]['pom_site_css'] ){
+			jQuery(w.document.body).append('<link rel="stylesheet" type="text/css" href="' + print_data[id]['pom_site_css'] + '" />'); 
 		}
 		
-		if ( typeof pom_custom_css != 'undefined' && pom_custom_css ){
-			jQuery(w.document.body).append("<style>"+ pom_custom_css +"</style>");
+		//if ( typeof pom_custom_css != 'undefined' && pom_custom_css ){
+		if ( typeof print_data[id]['pom_custom_css'] != 'undefined' && print_data[id]['pom_custom_css'] ){
+			jQuery(w.document.body).append("<style>"+ print_data[id]['pom_custom_css'] +"</style>");
 		}
 		
-		if ( typeof pom_do_not_print != 'undefined' && pom_do_not_print ) {
-			jQuery(pom_do_not_print).hide();
+		//if ( typeof pom_do_not_print != 'undefined' && pom_do_not_print ) {
+		if ( typeof print_data[id]['pom_do_not_print'] != 'undefined' && print_data[id]['pom_do_not_print'] ){
+			jQuery(print_data[id]['pom_do_not_print']).hide();
 		}
 		
-		if ( typeof pom_html_top != 'undefined' && pom_html_top ){
-			jQuery(w.document.body).append( pom_html_top );
+		//if ( typeof pom_html_top != 'undefined' && pom_html_top ){
+		if ( typeof print_data[id]['pom_html_top'] != 'undefined' && print_data[id]['pom_html_top'] ){
+			jQuery(w.document.body).append( print_data[id]['pom_html_top'] );
 		}
 		
 		//rot in hell, Internet Explorer
@@ -83,19 +87,20 @@ jQuery(document).ready(function() {
 			jQuery(w.document.body).append( jQuery( target ).clone() );
 		}
 		
-		if ( typeof pom_do_not_print != 'undefined' && pom_do_not_print ) {
-			jQuery(pom_do_not_print).show();
+		//if ( typeof pom_do_not_print != 'undefined' && pom_do_not_print ) {
+		if ( typeof print_data[id]['pom_do_not_print'] != 'undefined' && print_data[id]['pom_do_not_print'] ){
+			jQuery(print_data[id]['pom_do_not_print']).show();
 		}
 		
-		if ( typeof pom_html_bottom != 'undefined' && pom_html_bottom ){
-			jQuery(w.document.body).append( pom_html_bottom );
+		//if ( typeof pom_html_bottom != 'undefined' && pom_html_bottom ){
+		if ( typeof print_data[id]['pom_html_bottom'] != 'undefined' && print_data[id]['pom_html_bottom'] ){
+			jQuery(w.document.body).append( print_data[id]['pom_html_bottom'] );
 		}
 		
-		/* one way is to check for an iframe and if so, force a pause... but surely this is not the best way */
+		/* hardcodeed iframe and if so, force a pause... pro version offers more options */
 		iframe = jQuery(w.document).find('iframe');
 		var pause_time;
 		if (iframe.length) {
-			console.log('hey dude, we have an IFRAME');
 			pause_time = w.setTimeout(printIt, 3000);
 		}
 		else{
