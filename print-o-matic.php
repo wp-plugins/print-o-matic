@@ -5,7 +5,7 @@ Text Domain: printomat
 Domain Path: /language
 Plugin URI: http://plugins.twinpictures.de/plugins/print-o-matic/
 Description: Shortcode that adds a printer icon, allowing the user to print the post or a specified HTML element in the post.
-Version: 1.5.6
+Version: 1.5.7
 Author: twinpictures
 Author URI: http://twinpictuers.de
 License: GPL2
@@ -21,7 +21,7 @@ class WP_Print_O_Matic {
 	 * Current version
 	 * @var string
 	 */
-	var $version = '1.5.6';
+	var $version = '1.5.7';
 
 	/**
 	 * Used as prefix for options entry
@@ -50,6 +50,7 @@ class WP_Print_O_Matic {
 		'html_bottom' => '',
 		'script_check' => '',
 		'fix_clone' => '',
+		'pause_time' => '',
 	);
 	
 	var $add_print_script = array();
@@ -97,7 +98,7 @@ class WP_Print_O_Matic {
 	 */
 	function printMaticInit() {
 		//script
-		wp_register_script('printomatic-js', plugins_url('/printomat.js', __FILE__), array('jquery'), '1.5.9');
+		wp_register_script('printomatic-js', plugins_url('/printomat.js', __FILE__), array('jquery'), '1.5.10');
 		if( empty($this->options['script_check']) ){
 			wp_enqueue_script('printomatic-js');
 		}
@@ -152,6 +153,7 @@ class WP_Print_O_Matic {
 			'printstlye' => $options['printstlye'],
 			'html_top' => $options['html_top'],
 			'html_bottom' => $options['html_bottom'],
+			'pause_before_print' => $options['pause_time'],
 			'title' => '',
 			'alt' => ''
 		), $atts));
@@ -163,43 +165,6 @@ class WP_Print_O_Matic {
 		
 		//swap target placeholders out for the real deal
 		$target = str_replace('%ID%', get_the_ID(), $target);
-		
-		//scripts
-		/*
-		$scripts = "<script>";
-		
-		if( empty( $options['use_theme_css'] ) ){
-			$scripts .= "var pom_site_css = '';\n";
-		}else{
-			$scripts .= "var pom_site_css = '".get_stylesheet_uri()."';";
-		}
-		if( empty( $options['custom_css'] ) ){
-			$scripts .= "var pom_custom_css = '';\n";
-		}
-		else{
-			$scripts .= "var pom_custom_css = ".json_encode( $options['custom_css'] ).";";
-		}
-		if( empty( $html_top ) ){
-			$scripts .= "var pom_html_top = '';\n";
-		}
-		else{
-			$scripts .= "var pom_html_top = ".json_encode( $html_top ).";";
-		}
-		if( empty( $html_bottom ) ){
-			$scripts .= "var pom_html_bottom = '';\n";
-		}
-		else{
-			$scripts .= "var pom_html_bottom = ".json_encode( $html_bottom ).";";
-		}
-		if( empty( $do_not_print ) ){
-			$scripts .= "var pom_do_not_print = '';\n";
-		}
-		else{
-			$scripts .= "var pom_do_not_print = ".json_encode( $do_not_print ).";\n";
-		}
-		
-		$scripts .= "</script>";
-		*/
 		
 		if( empty( $options['use_theme_css'] ) ){
 			$pom_site_css = '';
@@ -236,7 +201,8 @@ class WP_Print_O_Matic {
 							'pom_custom_css' => $pom_custom_css,
 							'pom_html_top' => $pom_html_top,
 							'pom_html_bottom' => $pom_html_bottom,
-							'pom_do_not_print' => $pom_do_not_print
+							'pom_do_not_print' => $pom_do_not_print,
+							'pom_pause_time' => $pause_before_print
 						);
 		
 		if($printicon == "false"){
@@ -430,6 +396,14 @@ class WP_Print_O_Matic {
 										<br /><span class="description"><?php printf(__('Addresses known bug with textboxes and the jQuery clone function. %sjquery.fix.clone on github.com%s', 'printomat'), '<a href="http://github.com/spencertipping/jquery.fix.clone/" target="_blank">', '</a>'); ?></span></label>
 									</td>
 								</tr>
+								
+								<tr>
+									<th><?php _e( 'Pause Before Print', 'printomat' ) ?></th>
+									<td><label><input type="text" id="<?php echo $this->options_name ?>[pause_time]" name="<?php echo $this->options_name ?>[pause_time]" value="<?php echo $options['pause_time']; ?>" />
+										<br /><span class="description"><?php _e('Amount of time in milliseconds to pause and let the page fully load before triggering the print dialogue box', 'printomat'); ?></span></label>
+									</td>
+								</tr>
+								
 								</table>
 							</fieldset>
 							
@@ -469,6 +443,7 @@ class WP_Print_O_Matic {
 					<h3 class="handle"><?php _e( 'Level Up!' ) ?></h3>
 					<div class="inside">
 						<p><?php printf(__( '%sPrint-Pro-Matic%s is our premium plugin that offers a few additional attributes and features for <i>ultimate</i> flexibility.', 'print-o-mat' ), '<a href="http://plugins.twinpictures.de/premium-plugins/print-pro-matic/">', '</a>'); ?></p>		
+						<p><strong>Limited Offer:</strong> <a href="http://plugins.twinpictures.de/premium-plugins/print-pro-matic/">Update to Print-Pro-Matic</a> before January 1, 2015 to receive a lifetime unlimited licence. As of 2015 all Plugin Oven pro plugins will come with a more resctrictive licensing system.</p>
 						<h4><?php _e('Reasons To Go Pro', 'printomat'); ?></h4>
 						<ol>
 							<li><?php _e('You are an advanced user and want/need additional features', 'printomat'); ?></li>

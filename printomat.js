@@ -1,5 +1,5 @@
 /*!
- * Print-O-Matic JavaScript v1.5.9
+ * Print-O-Matic JavaScript v1.5.10
  * http://plugins.twinpictures.de/plugins/print-o-matic/
  *
  * Copyright 2014, Twinpictures
@@ -99,9 +99,13 @@ jQuery(document).ready(function() {
 		
 		/* hardcodeed iframe and if so, force a pause... pro version offers more options */
 		iframe = jQuery(w.document).find('iframe');
-		var pause_time;
-		if (iframe.length) {
-			pause_time = w.setTimeout(printIt, 3000);
+		if (iframe.length && print_data[id]['pom_pause_time'] < 3000 ) {
+			print_data[id]['pom_pause_time'] = 3000;
+		}
+		
+		if ( typeof print_data[id]['pom_pause_time'] != 'undefined' && print_data[id]['pom_pause_time'] > 0 ){
+			//console.log( print_data[id]['pom_pause_time'] );
+			pause_time = w.setTimeout(printIt, print_data[id]['pom_pause_time']);
 		}
 		else{
 			printIt();
