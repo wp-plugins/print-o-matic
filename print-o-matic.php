@@ -443,7 +443,7 @@ class WP_Print_O_Matic {
 					<h3 class="handle"><?php _e( 'Level Up!' ) ?></h3>
 					<div class="inside">
 						<p><?php printf(__( '%sPrint-Pro-Matic%s is our premium plugin that offers a few additional attributes and features for <i>ultimate</i> flexibility.', 'print-o-mat' ), '<a href="http://plugins.twinpictures.de/premium-plugins/print-pro-matic/">', '</a>'); ?></p>		
-						<p><strong>Limited Offer:</strong> <a href="http://plugins.twinpictures.de/premium-plugins/print-pro-matic/">Update to Print-Pro-Matic</a> before January 1, 2015 to receive a lifetime unlimited licence. As of 2015 all Plugin Oven pro plugins will come with a more resctrictive licensing system.</p>
+						<p style="padding: 5px; border: 1px dashed #cccc66; background: #EEE;"><strong>Limited Offer:</strong> <a href="http://plugins.twinpictures.de/premium-plugins/print-pro-matic/">Update to Print-Pro-Matic</a> before January 1, 2015 to receive a lifetime unlimited licence. As of 2015 all Plugin Oven pro plugins will come with a more restrictive licensing system.</p>
 						<h4><?php _e('Reasons To Go Pro', 'printomat'); ?></h4>
 						<ol>
 							<li><?php _e('You are an advanced user and want/need additional features', 'printomat'); ?></li>

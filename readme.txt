@@ -2,7 +2,7 @@
 Contributors: twinpictures, baden03
 Donate link: http://plugins.twinpictures.de/flying-houseboat/
 Tags: print, print element, print shortcode, send to print, print button, print me, jQuery, print page, javascript, twinpictures, plugin oven
-Requires at least: 3.5
+Requires at least: 3.9
 Tested up to: 4.1
 Stable tag: 1.5.7
 License: GPLv2 or later
@@ -47,7 +47,7 @@ We like to rock the party.
 == Changelog ==
 
 = 1.5.7 =
-* added print_before_print attribute and option to manually pause the print dialogue box to let the page fully load.
+* added pause_before_print attribute and option to manually pause the print dialogue box to let the page fully load.
 
 = 1.5.6 =
 * typo correction
@@ -110,7 +110,7 @@ We like to rock the party.
 == Upgrade Notice ==
 
 = 1.5.7 =
-* added print_before_print attribute and option to manually pause the print dialogue box to let the page fully load.
+* added pause_before_print attribute and option to manually pause the print dialogue box to let the page fully load.
 
 = 1.5.6 =
 * typo correction
