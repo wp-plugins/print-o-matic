@@ -5,7 +5,7 @@ Text Domain: printomat
 Domain Path: /language
 Plugin URI: http://plugins.twinpictures.de/plugins/print-o-matic/
 Description: Shortcode that adds a printer icon, allowing the user to print the post or a specified HTML element in the post.
-Version: 1.5.7
+Version: 1.6.0
 Author: twinpictures
 Author URI: http://twinpictuers.de
 License: GPL2
@@ -21,7 +21,7 @@ class WP_Print_O_Matic {
 	 * Current version
 	 * @var string
 	 */
-	var $version = '1.5.7';
+	var $version = '1.6.0';
 
 	/**
 	 * Used as prefix for options entry
@@ -147,6 +147,8 @@ class WP_Print_O_Matic {
 		
 		extract( shortcode_atts(array(
 			'id' => 'id'.$ran,
+			'class' => '',
+			'tag' => 'div',
 			'target' => $options['print_target'],
 			'do_not_print' => $options['do_not_print'],
 			'printicon' => $options['printicon'],
@@ -220,13 +222,13 @@ class WP_Print_O_Matic {
 			$alt_tag = "alt='".$alt."' title='".$alt."'";
 		}
 		if($printicon && $title){
-			$output = "<div class='printomatic ".$printstlye."' id='".$id."' ".$alt_tag."><input type='hidden' id='target-".$id."' value='".$target."' /></div> <div class='printomatictext' id='".$id."' ".$alt_tag.">".$title."</div><div style='clear: both;'></div>";
+			$output = "<div class='printomatic ".$printstlye." ".$class."' id='".$id."' ".$alt_tag." data-print_target='".$target."'></div> <div class='printomatictext' id='".$id."' ".$alt_tag.">".$title."</div><div style='clear: both;'></div>";
 		}
 		else if($printicon){
-			$output = "<div class='printomatic ".$printstlye."' id='".$id."' ".$alt_tag." ><input type='hidden' id='target-".$id."' value='".$target."' /></div>";
+			$output = "<".$tag." class='printomatic ".$printstlye." ".$class."'' id='".$id."' ".$alt_tag." data-print_target='".$target."'></".$tag.">";
 		}
 		else if($title){
-			$output = "<div class='printomatictext' id='".$id."' ".$alt_tag." >".$title."<input type='hidden' id='target-".$id."' value='".$target."' /></div>";
+			$output = "<".$tag." class='printomatictext ".$class."'' id='".$id."' ".$alt_tag." data-print_target='".$target."'>".$title."</".$tag.">";
 		}
 		
 		return  $output;
@@ -442,12 +444,13 @@ class WP_Print_O_Matic {
 					<div class="handlediv" title="<?php _e( 'Click to toggle' ) ?>"><br/></div>
 					<h3 class="handle"><?php _e( 'Level Up!' ) ?></h3>
 					<div class="inside">
-						<p><?php printf(__( '%sPrint-Pro-Matic%s is our premium plugin that offers a few additional attributes and features for <i>ultimate</i> flexibility.', 'print-o-mat' ), '<a href="http://plugins.twinpictures.de/premium-plugins/print-pro-matic/">', '</a>'); ?></p>		
-						<p style="padding: 5px; border: 1px dashed #cccc66; background: #EEE;"><strong>Limited Offer:</strong> <a href="http://plugins.twinpictures.de/premium-plugins/print-pro-matic/">Update to Print-Pro-Matic</a> before January 1, 2015 to receive a lifetime unlimited licence. As of 2015 all Plugin Oven pro plugins will come with a more restrictive licensing system.</p>
+						<p><?php printf(__( '%sPrint-Pro-Matic%s is our premium plugin that offers a few additional attributes and features for <i>ultimate</i> flexibility.', 'print-o-mat' ), '<a href="http://plugins.twinpictures.de/premium-plugins/print-pro-matic/?utm_source=print-o-matic&utm_medium=plugin-settings-page&utm_content=print-pro-matic&utm_campaign=print-pro-level-up">', '</a>'); ?></p>		
+						<p style="padding: 5px; border: 1px dashed #cccc66; background: #EEE;"><strong>Special Offer:</strong> <a href="http://plugins.twinpictures.de/premium-plugins/print-pro-matic/?utm_source=print-o-matic&utm_medium=plugin-settings-page&utm_content=print-pro-matic&utm_campaign=print-pro-may-the-forth">Update to Print-Pro-Matic</a> with discount code: <strong>MAYTHEFORTH</strong> on or before May 4th, 2015 and get a 15% discount. Why? Because Star Wars, that's why.</p>
 						<h4><?php _e('Reasons To Go Pro', 'printomat'); ?></h4>
 						<ol>
-							<li><?php _e('You are an advanced user and want/need additional features', 'printomat'); ?></li>
+							<li><?php _e('You are an advanced user and have advanced needs.', 'printomat'); ?></li>
 							<li><?php _e('Print-O-Matic was just what I needed. Here, have some money.', 'printomat'); ?></li>
+							<li>Special Offer: May the forth be with you.</li>
 						</ol>
 					</div>
 				</div>
