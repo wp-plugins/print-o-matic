@@ -98,7 +98,7 @@ class WP_Print_O_Matic {
 	 */
 	function printMaticInit() {
 		//script
-		wp_register_script('printomatic-js', plugins_url('/printomat.js', __FILE__), array('jquery'), '1.5.10');
+		wp_register_script('printomatic-js', plugins_url('/printomat.js', __FILE__), array('jquery'), '1.6.0');
 		if( empty($this->options['script_check']) ){
 			wp_enqueue_script('printomatic-js');
 		}
