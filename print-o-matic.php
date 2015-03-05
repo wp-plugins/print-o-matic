@@ -5,7 +5,7 @@ Text Domain: printomat
 Domain Path: /language
 Plugin URI: http://plugins.twinpictures.de/plugins/print-o-matic/
 Description: Shortcode that adds a printer icon, allowing the user to print the post or a specified HTML element in the post.
-Version: 1.6.0
+Version: 1.6.1
 Author: twinpictures
 Author URI: http://twinpictuers.de
 License: GPL2
@@ -21,7 +21,7 @@ class WP_Print_O_Matic {
 	 * Current version
 	 * @var string
 	 */
-	var $version = '1.6.0';
+	var $version = '1.6.1';
 
 	/**
 	 * Used as prefix for options entry
@@ -42,7 +42,7 @@ class WP_Print_O_Matic {
 		'print_target' => 'article',
 		'do_not_print' => '',
 		'printicon' => 'true',
-		'printstlye' => 'pom-default',
+		'printstyle' => 'pom-default',
 		'use_theme_css' => '',
 		'custom_page_css' => '',
 		'custom_css' => '',
@@ -152,7 +152,7 @@ class WP_Print_O_Matic {
 			'target' => $options['print_target'],
 			'do_not_print' => $options['do_not_print'],
 			'printicon' => $options['printicon'],
-			'printstlye' => $options['printstlye'],
+			'printstyle' => $options['printstyle'],
 			'html_top' => $options['html_top'],
 			'html_bottom' => $options['html_bottom'],
 			'pause_before_print' => $options['pause_time'],
@@ -161,8 +161,8 @@ class WP_Print_O_Matic {
 		), $atts));
 		
 		//if no printstyle, force-set to default
-		if( empty( $printstlye ) ){
-			$printstlye = 'pom-default';
+		if( empty( $printstyle ) ){
+			$printstyle = 'pom-default';
 		}
 		
 		//swap target placeholders out for the real deal
@@ -222,10 +222,10 @@ class WP_Print_O_Matic {
 			$alt_tag = "alt='".$alt."' title='".$alt."'";
 		}
 		if($printicon && $title){
-			$output = "<div class='printomatic ".$printstlye." ".$class."' id='".$id."' ".$alt_tag." data-print_target='".$target."'></div> <div class='printomatictext' id='".$id."' ".$alt_tag.">".$title."</div><div style='clear: both;'></div>";
+			$output = "<div class='printomatic ".$printstyle." ".$class."' id='".$id."' ".$alt_tag." data-print_target='".$target."'></div> <div class='printomatictext' id='".$id."' ".$alt_tag.">".$title."</div><div style='clear: both;'></div>";
 		}
 		else if($printicon){
-			$output = "<".$tag." class='printomatic ".$printstlye." ".$class."'' id='".$id."' ".$alt_tag." data-print_target='".$target."'></".$tag.">";
+			$output = "<".$tag." class='printomatic ".$printstyle." ".$class."'' id='".$id."' ".$alt_tag." data-print_target='".$target."'></".$tag.">";
 		}
 		else if($title){
 			$output = "<".$tag." class='printomatictext ".$class."'' id='".$id."' ".$alt_tag." data-print_target='".$target."'>".$title."</".$tag.">";
@@ -336,7 +336,7 @@ class WP_Print_O_Matic {
 											);
 											foreach( $si_array as $key => $value){
 												$selected = '';
-												if($options['printstlye'] == $value){
+												if($options['printstyle'] == $value){
 													$selected = 'checked';
 												}
 												?>
@@ -346,7 +346,7 @@ class WP_Print_O_Matic {
 												<?php
 											}
 										?>
-										<span class="description"><?php printf(__('If using a printer icon, which printer icon should be used? See %sPrintstlye Attribute%s in the documentation for more info.', 'printomat'), '<a href="http://plugins.twinpictures.de/plugins/print-o-matic/documentation/#printstlye" target="_blank">', '</a>'); ?></span></label>
+										<span class="description"><?php printf(__('If using a printer icon, which printer icon should be used? See %sPrintstyle Attribute%s in the documentation for more info.', 'printomat'), '<a href="http://plugins.twinpictures.de/plugins/print-o-matic/documentation/#printstyle" target="_blank">', '</a>'); ?></span></label>
 									</td>
 								</tr>
 								<tr>
