@@ -5,7 +5,7 @@ Text Domain: printomat
 Domain Path: /language
 Plugin URI: http://plugins.twinpictures.de/plugins/print-o-matic/
 Description: Shortcode that adds a printer icon, allowing the user to print the post or a specified HTML element in the post.
-Version: 1.6.1
+Version: 1.6.2
 Author: twinpictures
 Author URI: http://twinpictuers.de
 License: GPL2
@@ -21,7 +21,7 @@ class WP_Print_O_Matic {
 	 * Current version
 	 * @var string
 	 */
-	var $version = '1.6.1';
+	var $version = '1.6.2';
 
 	/**
 	 * Used as prefix for options entry
@@ -67,9 +67,10 @@ class WP_Print_O_Matic {
 		load_plugin_textdomain( 'printomat', FALSE, dirname( plugin_basename( __FILE__ ) ) . '/language/' );
 
 		// set uninstall hook
+		/*
 		if ( function_exists( 'register_deactivation_hook' ) )
 			register_deactivation_hook( __FILE__, array( $this, 'deactivation' ));
-		
+		*/
 		//load the script and style if not viewing the dashboard
 		add_action('wp_enqueue_scripts', array( $this, 'printMaticInit' ) );
 		
@@ -225,7 +226,7 @@ class WP_Print_O_Matic {
 			$output = "<div class='printomatic ".$printstyle." ".$class."' id='".$id."' ".$alt_tag." data-print_target='".$target."'></div> <div class='printomatictext' id='".$id."' ".$alt_tag.">".$title."</div><div style='clear: both;'></div>";
 		}
 		else if($printicon){
-			$output = "<".$tag." class='printomatic ".$printstyle." ".$class."'' id='".$id."' ".$alt_tag." data-print_target='".$target."'></".$tag.">";
+			$output = "<".$tag." class='printomatic ".$printstyle." ".$class."' id='".$id."' ".$alt_tag." data-print_target='".$target."'></".$tag.">";
 		}
 		else if($title){
 			$output = "<".$tag." class='printomatictext ".$class."'' id='".$id."' ".$alt_tag." data-print_target='".$target."'>".$title."</".$tag.">";
@@ -320,6 +321,9 @@ class WP_Print_O_Matic {
 									<th><?php _e( 'Printer Icon', 'printomat') ?></th>
 									<td>
 										<?php
+											if( empty($options['printstyle']) ){
+												$options['printstyle']	= 'pom-default';
+											}
 											$si_array = array(
 												__('Default', 'printomat') => 'pom-default',
 												__('Small', 'printomat') => 'pom-small',
@@ -340,7 +344,7 @@ class WP_Print_O_Matic {
 													$selected = 'checked';
 												}
 												?>
-												<label><input type="radio" name="<?php echo $this->options_name ?>[printstlye]" value="<?php echo $value; ?>" <?php echo $selected; ?>> &nbsp;<?php echo $key; ?>
+												<label><input type="radio" name="<?php echo $this->options_name ?>[printstyle]" value="<?php echo $value; ?>" <?php echo $selected; ?>> &nbsp;<?php echo $key; ?>
 												<img src="<?php echo plugins_url( 'css/'.$icon_array[$value], __FILE__ ) ?>"/>
 												</label><br/>
 												<?php
@@ -463,10 +467,12 @@ class WP_Print_O_Matic {
 	/**
 	 * Deactivation plugin method
 	 */
+	/*
 	function deactivation() {
 		delete_option( $this->options_name );
 		unregister_setting( $this->domain, $this->options_name );
 	}
+	*/
 
 	/**
 	 * Set options from save values or defaults
