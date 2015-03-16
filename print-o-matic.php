@@ -5,7 +5,7 @@ Text Domain: printomat
 Domain Path: /language
 Plugin URI: http://plugins.twinpictures.de/plugins/print-o-matic/
 Description: Shortcode that adds a printer icon, allowing the user to print the post or a specified HTML element in the post.
-Version: 1.6.2
+Version: 1.6.3
 Author: twinpictures
 Author URI: http://twinpictuers.de
 License: GPL2
@@ -21,7 +21,7 @@ class WP_Print_O_Matic {
 	 * Current version
 	 * @var string
 	 */
-	var $version = '1.6.2';
+	var $version = '1.6.3';
 
 	/**
 	 * Used as prefix for options entry
@@ -66,11 +66,6 @@ class WP_Print_O_Matic {
 		// load text domain for translations
 		load_plugin_textdomain( 'printomat', FALSE, dirname( plugin_basename( __FILE__ ) ) . '/language/' );
 
-		// set uninstall hook
-		/*
-		if ( function_exists( 'register_deactivation_hook' ) )
-			register_deactivation_hook( __FILE__, array( $this, 'deactivation' ));
-		*/
 		//load the script and style if not viewing the dashboard
 		add_action('wp_enqueue_scripts', array( $this, 'printMaticInit' ) );
 		
@@ -223,7 +218,7 @@ class WP_Print_O_Matic {
 			$alt_tag = "alt='".$alt."' title='".$alt."'";
 		}
 		if($printicon && $title){
-			$output = "<div class='printomatic ".$printstyle." ".$class."' id='".$id."' ".$alt_tag." data-print_target='".$target."'></div> <div class='printomatictext' id='".$id."' ".$alt_tag.">".$title."</div><div style='clear: both;'></div>";
+			$output = "<div class='printomatic ".$printstyle." ".$class."' id='".$id."' ".$alt_tag." data-print_target='".$target."'></div> <div class='printomatictext' id='".$id."' ".$alt_tag." data-print_target='".$target."'>".$title."</div><div style='clear: both;'></div>";
 		}
 		else if($printicon){
 			$output = "<".$tag." class='printomatic ".$printstyle." ".$class."' id='".$id."' ".$alt_tag." data-print_target='".$target."'></".$tag.">";
@@ -286,7 +281,6 @@ class WP_Print_O_Matic {
 						<form method="post" action="options.php">
 							<?php
 								settings_fields( $this->domain );
-								$this->_set_options();
 								$options = $this->options;
 							?>
 							<fieldset class="options">
@@ -463,16 +457,6 @@ class WP_Print_O_Matic {
 		</div>
 	<?php
 	}
-
-	/**
-	 * Deactivation plugin method
-	 */
-	/*
-	function deactivation() {
-		delete_option( $this->options_name );
-		unregister_setting( $this->domain, $this->options_name );
-	}
-	*/
 
 	/**
 	 * Set options from save values or defaults
