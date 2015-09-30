@@ -3,8 +3,8 @@ Contributors: twinpictures, baden03
 Donate link: http://plugins.twinpictures.de/flying-houseboat/
 Tags: print, print element, print shortcode, send to print, print button, print me, jQuery, print page, javascript, twinpictures, plugin oven
 Requires at least: 3.9
-Tested up to: 4.2
-Stable tag: 1.6.3
+Tested up to: 4.3.1
+Stable tag: 1.6.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -24,6 +24,9 @@ Print-O-Matic adds the ability to print any post, page or page element by using 
 1. Leave a comment regarding bugs, feature request, cocktail recipes at http://wordpress.org/tags/print-o-matic/
 
 == Frequently Asked Questions ==
+
+= Where can I fork this plugin and contribute changes? =
+<a href='https://github.com/baden03/print-o-matic'>github</a>
 
 = I am a Social Netwookiee, might Twinpictures have a Facebook page? =
 Yes, yes... <a href='http://www.facebook.com/twinpictures'>Twinpictures is on Facebook</a>.
@@ -45,6 +48,14 @@ We like to rock the party.
 1. Print-O-Matic Options screen for Ultimate Flexibility
 
 == Changelog ==
+
+= 1.6.5 =
+* adjusted method of determining if the print_data object exists and has property
+* adjusted the language domain to work with WordPress’ new language translation system
+
+= 1.6.4 =
+* addressed move lovely IE issues
+* mega hack-o-riffic workaround for IE input text elements loosing user input values
 
 = 1.6.3 =
 * fixed bug with title not passing target correctly when displaying both icon and title
@@ -122,6 +133,10 @@ We like to rock the party.
 * The plug-in was forked and completely rewritten from Print Button Shortcode by MyWebsiteAdvisor.
 
 == Upgrade Notice ==
+
+= 1.6.4 =
+* addressed lovely IE issues
+* mega hack-o-riffic workaround for IE input text elements loosing user input values
 
 = 1.6.3 =
 * fixed bug with title not passing target correctly when displaying both icon and title
